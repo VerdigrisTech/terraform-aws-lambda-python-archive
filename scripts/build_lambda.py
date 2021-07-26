@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+from zipfile import ZIP_DEFLATED
 
 def build(src_dir, output_path, install_dependencies):
     with tempfile.TemporaryDirectory() as build_dir:
@@ -41,7 +42,7 @@ def make_archive(src_dir, output_path):
         else:
             raise
 
-    with zipfile.ZipFile(output_path, 'w', compresslevel=9) as archive:
+    with zipfile.ZipFile(output_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as archive:
         for root, dirs, files in os.walk(src_dir):
             for file in files:
                 if file.endswith('.pyc'):
