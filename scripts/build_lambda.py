@@ -1,4 +1,3 @@
-
 from distutils.dir_util import copy_tree
 
 import base64
@@ -42,7 +41,7 @@ def make_archive(src_dir, output_path):
         else:
             raise
 
-    with zipfile.ZipFile(output_path, 'w') as archive:
+    with zipfile.ZipFile(output_path, 'w', compresslevel=9) as archive:
         for root, dirs, files in os.walk(src_dir):
             for file in files:
                 if file.endswith('.pyc'):
