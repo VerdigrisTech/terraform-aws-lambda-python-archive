@@ -42,7 +42,7 @@ def make_archive(src_dir, output_path):
         else:
             raise
 
-    with zipfile.ZipFile(output_path, 'w', compression=ZIP_DEFLATED, compresslevel=9) as archive:
+    with zipfile.ZipFile(output_path, 'w') as archive:
         for root, dirs, files in os.walk(src_dir):
             for file in files:
                 if file.endswith('.pyc'):
@@ -55,7 +55,9 @@ def make_archive(src_dir, output_path):
                     data = f.read()
                 archive.writestr(
                     metadata,
-                    data
+                    data,
+                    compress_type=ZIP_DEFLATED,
+                    compresslevel=9
                 )
 
 def get_hash(output_path):
